@@ -41,9 +41,13 @@ class Auth extends CI_Controller
                 if(password_verify($password,$user['password'])){
                     $data = [
                         'email' => $user['email'],
-                        'id_user' => $user['id_user']
+                        'id_user' => $user['id_user'],
+                        'nama_asli' => $user['nama_asli'],
+                        'username' => $user['username'],
+                        'foto' => $user['foto']
                     ];
                     $this->session->set_userdata($data);
+                    $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Anda berhasil login!</div>');
                     redirect('Auth/dashboard');
                 }else{
                     $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Wrong password!</div>');
@@ -92,9 +96,39 @@ class Auth extends CI_Controller
 
     public function dashboard()
     {
-        $data['title'] = 'Dashboard Page';
+        if (isset($_SESSION['username'])){
+            $cek = $this->db->get_where('user',['id_user' => $this->session->get_userdata()['id_user']])->row_array();
+            if ($_SESSION['username'] == $cek['username']){
+                $data['title'] = 'Dashboard Page';
         $this->load->view('LTE/template/L_header',$data);
         $this->load->view('LTE/dashboard');
         $this->load->view('LTE/template/L_footer');
+            }else{
+                header('Location:'.base_url());
+            }
+        }else{
+            header('Location:'.base_url());
+        }
+        
     }
+
+    public function jajal(){
+        //$tes['all'] = $this->db->get('user')->result();
+        $tes = $this->session->get_userdata();
+        var_dump($tes);
+        var_dump($_SESSION['username']);
+    }
+
+    public function logout(){
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('id_user');
+        $this->session->unset_userdata('nama_asli');
+        $this->session->unset_userdata('username');
+        $this->session->unset_userdata('foto');
+
+        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">You have been logged out!</div>');
+        redirect('auth');
+    }
+
 }
+?>

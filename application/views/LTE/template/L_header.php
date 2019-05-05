@@ -18,6 +18,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="<?= base_url('vendor/LTE/') ?>dist/css/skins/_all-skins.min.css">
+    <link rel="shortcut icon" href="<?= base_url('assets/img/favicon.png') ?>">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -98,7 +99,7 @@
                                             <!-- start message -->
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="<?= base_url('vendor/LTE/') ?>dist/img/user2-160x160.jpg"
+                                                    <img src="<?= base_url('assets/img/').$this->session->get_userdata()['foto']; ?>"
                                                         class="img-circle" alt="User Image">
                                                 </div>
                                                 <h4>
@@ -173,18 +174,18 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="<?= base_url('vendor/LTE/') ?>dist/img/user2-160x160.jpg" class="user-image"
-                                    alt="User Image">
-                                <span class="hidden-xs">Alexander Pierce</span>
+                                <img src="<?= base_url('assets/img/').$this->session->get_userdata()['foto']; ?>"
+                                    class="user-image" alt="User Image">
+                                <span class="hidden-xs"><?= $this->session->get_userdata()['username'];?></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="<?= base_url('vendor/LTE/') ?>dist/img/user2-160x160.jpg"
+                                    <img src="<?= base_url('assets/img/').$this->session->get_userdata()['foto']; ?>"
                                         class="img-circle" alt="User Image">
 
                                     <p>
-                                        Alexander Pierce - Web Developer
+                                        <?= $this->session->get_userdata()['nama_asli']; ?> - Web Developer
                                         <small>Member since Nov. 2012</small>
                                     </p>
                                 </li>
@@ -209,7 +210,8 @@
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="<?= base_url('auth/logout') ?>" class="btn btn-default btn-flat">Sign
+                                            out</a>
                                     </div>
                                 </li>
                             </ul>
@@ -232,11 +234,11 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="<?= base_url('vendor/LTE/') ?>dist/img/user2-160x160.jpg" class="img-circle"
-                            alt="User Image">
+                        <img src="<?= base_url('assets/img/').$this->session->get_userdata()['foto']; ?>"
+                            class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Alexander Pierce</p>
+                        <p><?=$this->session->get_userdata()['nama_asli']; ?></p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
