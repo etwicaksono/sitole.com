@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Auth extends CI_Controller
+class L_Auth extends CI_Controller
 {
 
     public function __construct(){
@@ -11,10 +11,10 @@ class Auth extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Login Page';
-        $this->load->view('template/auth/header',$data);
-        $this->load->view('auth/login');
-        $this->load->view('template/auth/footer');
+        $data['title'] = 'Dashboard Page';
+        $this->load->view('LTE/template/L_header',$data);
+        $this->load->view('LTE/dashboard');
+        $this->load->view('LTE/template/L_footer');
     }
 
     public function registration()
@@ -50,8 +50,15 @@ class Auth extends CI_Controller
         // }
 
         $data['title'] = 'Registration Page';
-        $this->load->view('template/auth/header',$data);
+        $this->load->view('LTE/template/auth/header',$data);
         $this->load->view('auth/registration');
-        $this->load->view('template/auth/footer');
+        $this->load->view('LTE/template/auth/footer');
+    }
+
+    public function login(){
+        $data['title'] = 'Login Page';
+        $this->load->view('LTE/template/auth/header',$data);
+        $this->load->view('auth/registration');
+        $this->load->view('LTE/template/auth/footer');
     }
 }
