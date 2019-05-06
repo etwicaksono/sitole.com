@@ -18,7 +18,7 @@ class Item extends CI_Controller
                 $this->form_validation->set_rules('harga_barang','Harga Barang','required|trim');
                 $this->form_validation->set_rules('deskripsi','Deskripsi Barang','required|trim');
                 $this->form_validation->set_rules('stok_barang','Stok Barang','required|trim');
-                $this->form_validation->set_rules('foto','Foto Barang','required|trim');
+                //$this->form_validation->set_rules('foto','Foto Barang','required|trim');
         
         
                 if ($this->form_validation->run() == false){
@@ -27,14 +27,19 @@ class Item extends CI_Controller
                     $this->load->view('SBA/item/upload_barang');
                     $this->load->view('SBA/template/footer');
                 }else{
+                    $upload_images =  $_FILES['foto']['name'];
+                    $config['upload_path'] = base_url().'/assets/img/';
+                    $this->load->library('upload',$config);
+
                     $data = [
-                        'id_user' => $this->session->get_userdata('id_user'),
+                        'id_user' => $this->session->get_userdata()['id_user'],
                         'nama_barang' => htmlspecialchars($this->input->post('nama_barang',true)),
                         'harga_barang' => htmlspecialchars($this->input->post('harga_barang',true)),
                         'kategori' => htmlspecialchars($this->input->post('kategori')),
                         'sub_kategori' => htmlspecialchars($this->input->post('sub_kategori')),
                         'deskripsi' => htmlspecialchars($this->input->post('deskripsi',true)),
-                        'gbr_barang' => _FILES['foto']['name']
+                        'stok_barang' => $this->input->post('stok_barang'),
+                        'gbr_barang' => $upload_images
                     ];
         
                     $this->db->insert('barang',$data);
@@ -42,9 +47,11 @@ class Item extends CI_Controller
                     redirect('item/upload_barang');
                 }
             }else{
+                $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Data login anda rusak! Silahkan login ulang!</div>');
                 header('Location:'.base_url());
             }
         }else{
+            $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Anda harus login untuk bisa mendapat hak akses!</div>');
             header('Location:'.base_url());
         }
 

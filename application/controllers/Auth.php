@@ -50,8 +50,12 @@ class Auth extends CI_Controller
                     $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Anda berhasil login!</div>');
                     redirect('Auth/dashboard');
                 }else{
-                    $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Wrong password!</div>');
+                    $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Password salah!</div>');
+                    redirect('auth');
                 }
+        }else{
+            $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Email ini tidak terdaftar!</div>');
+                    redirect('auth');
         }
     }
 
@@ -104,9 +108,11 @@ class Auth extends CI_Controller
         $this->load->view('LTE/dashboard');
         $this->load->view('LTE/template/L_footer');
             }else{
+                $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Data login anda rusak! Silahkan login ulang!</div>');
                 header('Location:'.base_url());
             }
         }else{
+            $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Anda harus login untuk bisa mendapat hak akses!</div>');
             header('Location:'.base_url());
         }
         
@@ -114,9 +120,11 @@ class Auth extends CI_Controller
 
     public function jajal(){
         //$tes['all'] = $this->db->get('user')->result();
-        $tes = $this->session->get_userdata();
-        var_dump($tes);
-        var_dump($_SESSION['username']);
+        // $tes = $this->session->get_userdata();
+        // var_dump($tes);
+        // var_dump($_SESSION['username']);
+        var_dump($_POST);
+        var_dump($_FILES);
     }
 
     public function logout(){
