@@ -119,12 +119,9 @@ class Auth extends CI_Controller
     }
 
     public function jajal(){
-        //$tes['all'] = $this->db->get('user')->result();
-        // $tes = $this->session->get_userdata();
-        // var_dump($tes);
-        // var_dump($_SESSION['username']);
-        var_dump($_POST);
-        var_dump($_FILES);
+        
+        $this->load->view('tes');
+
     }
 
     public function logout(){
