@@ -18,12 +18,17 @@ class Item extends CI_Controller
                 $this->form_validation->set_rules('harga_barang','Harga Barang','required|trim');
                 $this->form_validation->set_rules('deskripsi','Deskripsi Barang','required|trim');
                 $this->form_validation->set_rules('stok_barang','Stok Barang','required|trim');
+<<<<<<< HEAD
+                //$this->form_validation->set_rules('foto','Foto Barang','required');
+=======
  
                 //$this->form_validation->set_rules('foto','Foto Barang','required|trim');
 
+>>>>>>> d9e96224641663bae0e9b0e7bc3d601456862aaa
         
         
                 if ($this->form_validation->run() == false){
+                    $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert"> Ada yang salah di form</div>');
                     $data['title'] = 'Upload Barang';
                     $this->load->view('SBA/template/header',$data);
                     $this->load->view('SBA/item/upload_barang');
@@ -33,8 +38,18 @@ class Item extends CI_Controller
                   
 
                     $upload_images =  $_FILES['foto']['name'];
-                    $config['upload_path'] = base_url().'/assets/img/';
+                    $config['upload_path'] = './assets/img/product/';
+                    $config['allowed_types'] = 'jpg|png|gif|jpeg|webp';
+                    $config['max_size'] = '2048';
                     $this->load->library('upload',$config);
+                    $this->upload->initialize($config);
+                    $this->upload->do_upload('foto');
+                    // if ($this->upload->do_upload('foto')){
+                    //     $success = true;
+                    // }else{
+                    //     $error = $this->upload->display_errors();
+                    //     $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert"> error</div>');
+                    // }
 
                     $data = [
                         'id_user' => $this->session->get_userdata()['id_user'],
@@ -50,10 +65,14 @@ class Item extends CI_Controller
                         'gbr_barang' => $upload_images
 
                     ];
-        
                     $this->db->insert('barang',$data);
-                    $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input barang berhasil!</div>');
+                    if ($success == true){
+                        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input barang berhasil!</div>');
+                        redirect('item/upload_barang');
+                    }else{
+                        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Input barang gagal!</div>');
                     redirect('item/upload_barang');
+                    }
                 }
             }else{
                 $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Data login anda rusak! Silahkan login ulang!</div>');

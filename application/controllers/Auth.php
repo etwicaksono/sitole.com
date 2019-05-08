@@ -115,6 +115,10 @@ class Auth extends CI_Controller
             header('Location:'.base_url());
         }
 
+        
+    }
+
+
     public function logout(){
         $this->session->unset_userdata('email');
         $this->session->unset_userdata('id_user');
@@ -128,4 +132,3 @@ class Auth extends CI_Controller
 
 }
 ?>
-
