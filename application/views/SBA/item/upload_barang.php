@@ -9,9 +9,11 @@
                     <div class="p-5">
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Upload Barang!</h1>
-                        </div>
+                        </div>  
+
                         <form class="user" method="post" action="<?= base_url('item/upload_barang') ?>"
                             enctype="multipart/form-data">
+
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-user" id="nama_barang"
                                     name="nama_barang" placeholder="Nama Barang"
@@ -49,7 +51,10 @@
                                     <div class="col-sm-3">
                                         <input type="number" class="form-control" id="stok_barang" name="stok_barang"
                                             placeholder="0" value="<?= set_value('stok_barang'); ?>">
-                                        <?= form_error('stok_barang','<small class="text-danger pl-4">','</small>'); ?>
+
+                                        <?= form_error('Stok_barang','<small class="text-danger pl-4">','</small>'); ?>
+
+
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -57,8 +62,10 @@
                                     <input type="file" name="foto" multiple>
                                 </div>
                                 <input type="hidden" name="kategori" value="1">
+
                                 <input type="hidden" name="id_user"
                                     value="<?= $this->session->get_userdata()['id_user'] ?>">
+
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Jual Barang
                                 </button>

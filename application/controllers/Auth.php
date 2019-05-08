@@ -61,7 +61,6 @@ class Auth extends CI_Controller
 
     public function registration()
     {
-        
 
         $this->form_validation->set_rules('nama_asli','Nama Lengkap','required|trim');
         $this->form_validation->set_rules('username','Username','required|trim|is_unique[user.username]',[
@@ -115,14 +114,6 @@ class Auth extends CI_Controller
             $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Anda harus login untuk bisa mendapat hak akses!</div>');
             header('Location:'.base_url());
         }
-        
-    }
-
-    public function jajal(){
-        
-        $this->load->view('tes');
-
-    }
 
     public function logout(){
         $this->session->unset_userdata('email');
@@ -137,3 +128,4 @@ class Auth extends CI_Controller
 
 }
 ?>
+
