@@ -118,11 +118,7 @@ class Auth extends CI_Controller
         
     }
 
-    public function jajal(){
-        
-        $this->load->view('tes');
-
-    }
+    
 
     public function logout(){
         $this->session->unset_userdata('email');

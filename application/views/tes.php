@@ -11,12 +11,10 @@
 </head>
 
 <body>
-    <form action="<?= base_url('auth/jajal') ?>" method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
+    <form action="<?= base_url('test_box/insert_manual') ?>" method="post" enctype="multipart/form-data">
+        <input type="file" name='gambar'>
         <button type="submit">SUBMIT!</button>
     </form>
 </body>
-<?php //ini teguh
-//tes merge lagi ?>
 
 </html>
