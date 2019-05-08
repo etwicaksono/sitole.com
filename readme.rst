@@ -73,3 +73,5 @@ contributors to the CodeIgniter project and you, the CodeIgniter user.
 test push
 
 test sinkronisasi
+
+Test sink 3
