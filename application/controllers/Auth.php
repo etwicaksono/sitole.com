@@ -44,9 +44,6 @@ class Auth extends CI_Controller
                         'id_user' => $user['id_user'],
                         'nama_asli' => $user['nama_asli'],
                         'username' => $user['username'],
-                        'password' =>$user['password'],
-                        'no_hp'=>$user['no_hp'],
-                        'alamat'=>$user['alamat'],
                         'foto' => $user['foto']
                     ];
                     $this->session->set_userdata($data);
@@ -64,7 +61,6 @@ class Auth extends CI_Controller
 
     public function registration()
     {
-
 
         $this->form_validation->set_rules('nama_asli','Nama Lengkap','required|trim');
         $this->form_validation->set_rules('username','Username','required|trim|is_unique[user.username]',[
@@ -119,15 +115,6 @@ class Auth extends CI_Controller
             header('Location:'.base_url());
         }
 
-    }
-
-    public function jajal(){
-        //$tes['all'] = $this->db->get('user')->result();
-        $tes = $this->session->get_userdata();
-        var_dump($tes);
-        var_dump($_SESSION['username']);
-    }
-
     public function logout(){
         $this->session->unset_userdata('email');
         $this->session->unset_userdata('id_user');
@@ -141,3 +128,4 @@ class Auth extends CI_Controller
 
 }
 ?>
+
