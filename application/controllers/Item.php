@@ -6,9 +6,9 @@ class Item extends CI_Controller
     public function __construct(){
         parent::__construct();
         $this->load->library('form_validation');
-        
+
     }
-    
+
     public function upload_barang(){
         if (isset($_SESSION['username'])){
             $cek = $this->db->get_where('user',['id_user' => $this->session->get_userdata()['id_user']])->row_array();
@@ -18,15 +18,8 @@ class Item extends CI_Controller
                 $this->form_validation->set_rules('harga_barang','Harga Barang','required|trim');
                 $this->form_validation->set_rules('deskripsi','Deskripsi Barang','required|trim');
                 $this->form_validation->set_rules('stok_barang','Stok Barang','required|trim');
-<<<<<<< HEAD
                 //$this->form_validation->set_rules('foto','Foto Barang','required');
-=======
- 
                 //$this->form_validation->set_rules('foto','Foto Barang','required|trim');
-
->>>>>>> d9e96224641663bae0e9b0e7bc3d601456862aaa
-        
-        
                 if ($this->form_validation->run() == false){
                     $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert"> Ada yang salah di form</div>');
                     $data['title'] = 'Upload Barang';
@@ -34,9 +27,6 @@ class Item extends CI_Controller
                     $this->load->view('SBA/item/upload_barang');
                     $this->load->view('SBA/template/footer');
                 }else{
-
-                  
-
                     $upload_images =  $_FILES['foto']['name'];
                     $config['upload_path'] = './assets/img/product/';
                     $config['allowed_types'] = 'jpg|png|gif|jpeg|webp';
@@ -53,14 +43,11 @@ class Item extends CI_Controller
 
                     $data = [
                         'id_user' => $this->session->get_userdata()['id_user'],
-
                         'nama_barang' => htmlspecialchars($this->input->post('nama_barang',true)),
                         'harga_barang' => htmlspecialchars($this->input->post('harga_barang',true)),
                         'kategori' => htmlspecialchars($this->input->post('kategori')),
                         'sub_kategori' => htmlspecialchars($this->input->post('sub_kategori')),
                         'deskripsi' => htmlspecialchars($this->input->post('deskripsi',true)),
-
-
                         'stok_barang' => $this->input->post('stok_barang'),
                         'gbr_barang' => $upload_images
 
@@ -82,14 +69,5 @@ class Item extends CI_Controller
             $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Anda harus login untuk bisa mendapat hak akses!</div>');
             header('Location:'.base_url());
         }
-
-
-
-
-       
-
-       
     }
-
-
 }
