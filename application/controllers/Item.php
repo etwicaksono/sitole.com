@@ -18,13 +18,8 @@ class Item extends CI_Controller
                 $this->form_validation->set_rules('harga_barang','Harga Barang','required|trim');
                 $this->form_validation->set_rules('deskripsi','Deskripsi Barang','required|trim');
                 $this->form_validation->set_rules('stok_barang','Stok Barang','required|trim');
-<<<<<<< HEAD
-                //$this->form_validation->set_rules('foto','Foto Barang','required');
-=======
- 
-                //$this->form_validation->set_rules('foto','Foto Barang','required|trim');
+                $this->form_validation->set_rules('foto','Foto Barang','required');
 
->>>>>>> d9e96224641663bae0e9b0e7bc3d601456862aaa
         
         
                 if ($this->form_validation->run() == false){
