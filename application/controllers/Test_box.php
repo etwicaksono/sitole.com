@@ -69,7 +69,7 @@ class Test_box extends CI_Controller
                     
         $data = [
             'id_user' => 7,
-            'nama_barang' => 'uji coba barang',
+            'nama_barang' => 'uji coba barang 1128',
             'harga_barang' => 12000,
             'kategori' => 1,
             'sub_kategori' => 2,
@@ -90,7 +90,38 @@ class Test_box extends CI_Controller
         if (isset($_SESSION['username'])){
             $cek = $this->db->get_where('user',['id_user' => $this->session->get_userdata()['id_user']])->row_array();
             if ($_SESSION['username'] == $cek['username']){
-                
+                $data['title'] = 'Dashboard Page';
+                $this->form_validation->set_rules('nama_barang','Nama Barang','required|trim');
+                $this->form_validation->set_rules('harga_barang','Harga Barang','required|trim');
+                $this->form_validation->set_rules('deskripsi','Deskripsi Barang','required|trim');
+                $this->form_validation->set_rules('stok_barang','Stok Barang','required|trim');
+
+                if ($this->form_validation->run() == false){//cek validasi form
+                    $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert"> Ada yang salah di form</div>');
+                    $data['title'] = 'Upload Barang';
+                    $this->load->view('SBA/template/header',$data);
+                    $this->load->view('SBA/item/upload_barang');
+                    $this->load->view('SBA/template/footer');
+                }else{
+                    $upload_images =  $_FILES['foto']['name'];
+                    $config['upload_path'] = './assets/img/product/';
+                    $config['allowed_types'] = 'jpg|png|gif|jpeg|webp';
+                    $config['max_size'] = '2048';
+                    $this->load->library('upload',$config);
+                    $this->upload->initialize($config);
+                    $this->upload->do_upload('foto');
+
+                    $data = [
+                        'id_user' => 7,
+                        'nama_barang' => 'uji coba barang 1128',
+                        'harga_barang' => 12000,
+                        'kategori' => 1,
+                        'sub_kategori' => 2,
+                        'deskripsi' => 'ini uji coba deskripsi',
+                        'stok_barang' => 11,
+                        'gbr_barang' => $upload_images
+                    ];
+                }
             }else{
                 $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Data login anda rusak! Silahkan login ulang!</div>');
                 header('Location:'.base_url());

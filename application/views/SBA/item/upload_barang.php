@@ -9,7 +9,7 @@
                     <div class="p-5">
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Upload Barang!</h1>
-                        </div>  
+                        </div>
 
                         <form class="user" method="post" action="<?= base_url('item/upload_barang') ?>"
                             enctype="multipart/form-data">
@@ -60,6 +60,7 @@
                                 <div class="form-group">
                                     <label for="foto">Foto</label>
                                     <input type="file" name="foto" multiple>
+                                    <?= form_error('foto','<small class="text-danger pl-4">','</small>'); ?>
                                 </div>
                                 <input type="hidden" name="kategori" value="1">
 
