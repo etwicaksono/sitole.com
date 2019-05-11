@@ -9,6 +9,11 @@
                     <div class="p-5">
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Upload Barang!</h1>
+                            <?php if (isset($_POST['nama_barang'])){ echo $this->session->flashdata('message_form');} ?>
+                            <?= $this->session->flashdata('message_upload'); ?>
+                            <?= $this->session->flashdata('message_insert'); ?>
+                            <?= $this->session->flashdata('message_login'); ?>
+                            <?= $this->session->flashdata('message_relogin'); ?>
                         </div>
 
                         <form class="user" method="post" action="<?= base_url('item/upload_barang') ?>"

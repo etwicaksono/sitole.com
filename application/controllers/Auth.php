@@ -11,23 +11,29 @@ class Auth extends CI_Controller
 
     public function index()
     {
-        $this->form_validation->set_rules('email','Email','trim|required|valid_email');
-        $this->form_validation->set_rules('password','Password','trim|required');
-
-        if ($this->form_validation->run() == false){
-            $data['title'] = 'Login Page';
-            $this->load->view('SBA/template/header',$data);
-            $this->load->view('SBA/auth/login');
-            $this->load->view('SBA/template/footer');
-
+        if (isset($_SESSION['username'])){
+            $cek = $this->db->get_where('user',['id_user' => $this->session->get_userdata()['id_user']])->row_array();
+            if ($_SESSION['username'] == $cek['username']){
+                redirect(base_url('auth/dashboard'));
+            }else{
+                $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Data login anda rusak! Silahkan login ulang!</div>');
+                header('Location:'.base_url());
+            }
         }else{
-            $this->_login();
-        }
+            $this->form_validation->set_rules('email','Email','trim|required|valid_email');
+            $this->form_validation->set_rules('password','Password','trim|required');
 
-        // $data['title'] = 'Login Page';
-        // $this->load->view('SBA/template/header',$data);
-        // $this->load->view('SBA/auth/login');
-        // $this->load->view('SBA/template/footer');
+            if ($this->form_validation->run() == false){
+                $data['title'] = 'Login Page';
+                $this->load->view('SBA/template/header',$data);
+                $this->load->view('SBA/auth/login');
+                $this->load->view('SBA/template/footer');
+
+            }else{
+                $this->_login();
+            }
+        }
+        
     }
 
     private function _login(){
@@ -39,13 +45,7 @@ class Auth extends CI_Controller
         if($user){
                 //cek password
                 if(password_verify($password,$user['password'])){
-                    $data = [
-                        'email' => $user['email'],
-                        'id_user' => $user['id_user'],
-                        'nama_asli' => $user['nama_asli'],
-                        'username' => $user['username'],
-                        'foto' => $user['foto']
-                    ];
+                    $data = $user;
                     $this->session->set_userdata($data);
                     $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Anda berhasil login!</div>');
                     redirect('Auth/dashboard');
@@ -55,14 +55,24 @@ class Auth extends CI_Controller
                 }
         }else{
             $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Email ini tidak terdaftar!</div>');
-                    redirect('auth');
+            redirect('auth');
         }
+        
+        
     }
 
     public function registration()
     {
-
-        $this->form_validation->set_rules('nama_asli','Nama Lengkap','required|trim');
+        if (isset($_SESSION['username'])){
+            $cek = $this->db->get_where('user',['id_user' => $this->session->get_userdata()['id_user']])->row_array();
+            if ($_SESSION['username'] == $cek['username']){
+                redirect(base_url('auth/dashboard'));
+            }else{
+                $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Data login anda rusak! Silahkan login ulang!</div>');
+                header('Location:'.base_url());
+            }
+        }else{
+            $this->form_validation->set_rules('nama_asli','Nama Lengkap','required|trim');
         $this->form_validation->set_rules('username','Username','required|trim|is_unique[user.username]',[
             'is_unique' => 'Username ini sudah ada!']);
         $this->form_validation->set_rules('email','Email','required|trim|valid_email|is_unique[user.email]',[
@@ -95,17 +105,21 @@ class Auth extends CI_Controller
             $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Congratulation! your account has been created. Please login!</div>');
             redirect('auth');
         }
+        }
+
+        
     }
 
     public function dashboard()
     {
         if (isset($_SESSION['username'])){
-            $cek = $this->db->get_where('user',['id_user' => $this->session->get_userdata()['id_user']])->row_array();
+            $cek = $this->session->get_userdata();
             if ($_SESSION['username'] == $cek['username']){
                 $data['title'] = 'Dashboard Page';
-        $this->load->view('LTE/template/L_header',$data);
-        $this->load->view('LTE/dashboard');
-        $this->load->view('LTE/template/L_footer');
+                $data['data_bag'] = $cek;
+                $this->load->view('LTE/template/L_header',$data);
+                $this->load->view('LTE/dashboard');
+                $this->load->view('LTE/template/L_footer');
             }else{
                 $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Data login anda rusak! Silahkan login ulang!</div>');
                 header('Location:'.base_url());
