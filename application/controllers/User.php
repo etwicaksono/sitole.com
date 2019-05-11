@@ -39,8 +39,24 @@ class User extends CI_Controller
                 else{
                     //upload and insert scope
                     if (isset($_FILES['foto'])){//check uploaded file
-                        //generate array to inserted in database
+                        
                         $images = $_FILES['foto']['name'];
+                        $ekstensiGambar = explode('.',$images);
+                        $ekstensiGambar = strtolower(end($ekstensiGambar));
+                        $images = uniqid();
+                        $images .= '.';
+                        $images .= $ekstensiGambar;
+                        //set upload-file-config
+                        $new_name = uniqid().'.'.
+                        $config['upload_path'] = './assets/img/profile/';
+                        $config['allowed_types'] = 'jpg|png|jpeg|gif|webp';
+                        $config['file_ext_tolower'] = 'true';
+                        $config['file_name'] = $images;
+                        $config['max_size'] = '2048';
+                        $this->load->library('upload',$config);
+                        $this->upload->initialize($config);
+                        
+                        //generate array to inserted in database
                         $data = [
                             'nama_asli' => htmlspecialchars($this->input->post('nama_asli',true)),
                             'username' => htmlspecialchars($this->input->post('username',true)),
@@ -50,14 +66,6 @@ class User extends CI_Controller
                             'no_hp' => htmlspecialchars($this->input->post('no_hp',true)),
                             'foto' => $images
                         ];
-
-                        //set upload-file-config
-                        $config['upload_path'] = './assets/img/profile/';
-                        $config['allowed_types'] = 'jpg|png|jpeg|gif|webp';
-                        $config['max_size'] = '2048';
-                        $this->load->library('upload',$config);
-                        $this->upload->initialize($config);
-
                         //upload file, insert data to database and check the result
                         if ($this->upload->do_upload('foto')){//check upload result
                             $old_image = $_SESSION['foto'];
