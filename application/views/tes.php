@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <form action="<?= base_url('test_box/insert_manual') ?>" method="post" enctype="multipart/form-data">
+    <form action="<?= base_url('tester') ?>" method="post" enctype="multipart/form-data">
         <input type="file" name='gambar'>
         <button type="submit">SUBMIT!</button>
     </form>

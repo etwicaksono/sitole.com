@@ -110,6 +110,9 @@
                                 Update Data User
                             </button>
                         </form>
+
+                        <a href="<?= base_url('auth'); ?>" class="btn btn-primary btn-user btn-block mt-2">Back to
+                            Dashboard</a>
                         <hr>
                     </div>
                 </div>

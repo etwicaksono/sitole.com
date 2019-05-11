@@ -30,14 +30,16 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Harga Barang Rp.</span>
                                     </div>
-                                    <input type="text" class="form-control" name="harga_barang">
+                                    <input type="text" class="form-control" name="harga_barang"
+                                        value="<?= set_value('harga_barang'); ?>">
                                     <?= form_error('harga_barang','<small class="text-danger pl-4">','</small>'); ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
                                     <label for="sub_kategori">Sub Kategori:</label>
-                                    <select class="form-control" id="sub_kategori" name="sub_kategori">
+                                    <select class="form-control" id="sub_kategori" name="sub_kategori"
+                                        value="<?= set_value('sub_kategori'); ?>">
                                         <option value="1">Otomotif</option>
                                         <option value="2">Fashion</option>
                                         <option value="3">Elektronik</option>
@@ -46,7 +48,8 @@
                                 </div>
                                 <div class="form-group shadow-textarea">
                                     <textarea class="form-control z-depth-1" name="deskripsi" rows="5" cols="62"
-                                        placeholder="Deskripsi Barang" value="<?= set_value(''); ?>"></textarea>
+                                        placeholder="Deskripsi Barang"
+                                        value=""><?= set_value('deskripsi'); ?></textarea>
                                     <?= form_error('deskripsi','<small class="text-danger pl-4">','</small>'); ?>
                                 </div>
                                 <div class="form-group row">
