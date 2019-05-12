@@ -30,7 +30,63 @@
                 </div>
             </div>
             <div class="box-body">
-                Start creating your amazing application!
+                <!-- Main scope -->
+                <table border="1">
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Barang</th>
+                        <th>Harga Barang</th>
+                        <th>Kategori</th>
+                        <th>Sub Kategori</th>
+                        <th>Stok</th>
+                        <th>Gambar</th>
+                        <th>Aksi</th>
+                    </tr>
+                    <?php 
+		$no = $this->uri->segment('3') + 1;
+		foreach($barang as $u){ 
+		?>
+                    <tr>
+                        <td><?php echo $no++; ?></td>
+                        <td><?php echo $u->nama_barang ?></td>
+                        <td><?php echo $u->harga_barang ?></td>
+                        <td><?php 
+                        $kategori = $u->kategori;
+                        if ($kategori == 1){
+                            echo "Barang";
+                        }else if($kategori == 2){
+                            echo "Jasa";
+                        }else{
+                            echo "unidentified";
+                        }
+                        ?></td>
+                        <td><?php
+                         $sub_kategori = $u->sub_kategori;
+                         switch ($sub_kategori) {
+                             case '1':
+                                 echo "Otomotif";
+                                 break;
+                             case '2':
+                                echo "Fashion";
+                                break;
+                            case '3':
+                                echo "Elektronik";
+                                break;
+                             default:
+                                 echo $sub_kategori;
+                                 break;
+                         } ?></td>
+                        <td><?= $u->stok_barang; ?></td>
+                        <td><img src="<?= base_url('assets/img/product/').$u->gbr_barang ?>" alt="Gambar Produk"
+                                class="col-lg-1"></td>
+                        <td><a href="#">Edit</a> | <a href="#">Hapus</a></td>
+                    </tr>
+                    <?php } ?>
+                </table>
+                <br />
+                <?php 
+	echo $this->pagination->create_links();
+	?>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

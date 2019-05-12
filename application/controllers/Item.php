@@ -6,7 +6,8 @@ class Item extends CI_Controller
     public function __construct(){
         parent::__construct();
         $this->load->library('form_validation');
-
+		$this->load->helper(array('url'));
+		$this->load->model('m_product');
     }
 
     public function index(){
@@ -15,8 +16,20 @@ class Item extends CI_Controller
             if ($_SESSION['username'] == $cek['username']){//username validation
             //main scope
             $data['title'] = 'Pengaturan Item';
+            $this->load->database();
+            $jumlah_data = $this->m_product->jumlah_data('barang');
+            $this->load->library('pagination');
+            $config['base_url'] = base_url('item/index');
+            $config['total_rows'] = $jumlah_data;
+            $config['per_page'] = 10;
+            $from = $this->uri->segment(3);
+            $this->pagination->initialize($config);		
+            $data['barang'] = $this->m_product->data('barang',$config['per_page'],$from);
+
+            //var_dump($jumlah_data);
+            //================================
             $this->load->view('LTE/template/L_header',$data);
-            $this->load->view('LTE/item/index_barang');
+            $this->load->view('LTE/item/index_barang',$data);
             $this->load->view('LTE/template/L_footer');
             }//end-if of username validation
             else{
