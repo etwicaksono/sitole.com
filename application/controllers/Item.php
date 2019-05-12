@@ -9,6 +9,48 @@ class Item extends CI_Controller
 
     }
 
+    public function index(){
+        if (isset($_SESSION['username'])){//check session['username']
+            $cek = $this->db->get_where('user',['id_user' => $this->session->get_userdata()['id_user']])->row_array();
+            if ($_SESSION['username'] == $cek['username']){//username validation
+            //main scope
+            $data['title'] = 'Pengaturan Item';
+            $this->load->view('LTE/template/L_header',$data);
+            $this->load->view('LTE/item/index_barang');
+            $this->load->view('LTE/template/L_footer');
+            }//end-if of username validation
+            else{
+                $this->session->set_flashdata('message_relogin','<div class="alert alert-danger" role="alert">Data login anda rusak! Silahkan login ulang!</div>');
+                header('Location:'.base_url());
+            }//end-elsse of username validation
+        }//end-if of check session['username']
+        else{
+            $this->session->set_flashdata('message_login','<div class="alert alert-danger" role="alert">Anda harus login untuk bisa mendapat hak akses!</div>');
+            header('Location:'.base_url());
+        }//end-else of check username
+    }//end of index
+
+    public function index_jasa(){
+        if (isset($_SESSION['username'])){//check session['username']
+            $cek = $this->db->get_where('user',['id_user' => $this->session->get_userdata()['id_user']])->row_array();
+            if ($_SESSION['username'] == $cek['username']){//username validation
+            //main scope
+            $data['title'] = 'Pengaturan Item';
+            $this->load->view('LTE/template/L_header',$data);
+            $this->load->view('LTE/item/index_jasa');
+            $this->load->view('LTE/template/L_footer');
+            }//end-if of username validation
+            else{
+                $this->session->set_flashdata('message_relogin','<div class="alert alert-danger" role="alert">Data login anda rusak! Silahkan login ulang!</div>');
+                header('Location:'.base_url());
+            }//end-elsse of username validation
+        }//end-if of check session['username']
+        else{
+            $this->session->set_flashdata('message_login','<div class="alert alert-danger" role="alert">Anda harus login untuk bisa mendapat hak akses!</div>');
+            header('Location:'.base_url());
+        }//end-else of check username
+    }//end of index_jasa
+
     public function upload_barang(){
         if (isset($_SESSION['username'])){//check session['username']
             $cek = $this->db->get_where('user',['id_user' => $this->session->get_userdata()['id_user']])->row_array();

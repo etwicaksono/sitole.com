@@ -38,7 +38,7 @@
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="<?= base_url('vendor/LTE/') ?>index2.html" class="logo">
+            <a href="<?= base_url('auth') ?>" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <div class="logo-mini"><img src="<?= base_url('assets/img/favicon.png') ?>" alt="" style="width:50px;">
                 </div>
@@ -259,16 +259,16 @@
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                            <i class="fa fa-dashboard"></i> <span>Pengaturan Item</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="<?= base_url('vendor/LTE/') ?>index.html"><i class="fa fa-circle-o"></i>
-                                    Dashboard v1</a></li>
-                            <li><a href="<?= base_url('vendor/LTE/') ?>index2.html"><i class="fa fa-circle-o"></i>
-                                    Dashboard v2</a></li>
+                            <li><a href="<?= base_url('item') ?>"><i class="fa fa-circle-o"></i>
+                                    Barang</a></li>
+                            <li><a href="<?= base_url('item/index_jasa') ?>"><i class="fa fa-circle-o"></i>
+                                    Jasa</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
